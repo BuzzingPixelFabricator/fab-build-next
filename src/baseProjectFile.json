@@ -5,7 +5,8 @@
     "minifyCss": true,
     "enableJs": true,
     "minifyJs": true,
-    "enableJsHint": true,
+    "enableJSHint": true,
+    "enableJSCS": true,
     "sourceMaps": true,
     "proxy": false,
     "watch": []

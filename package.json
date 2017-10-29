@@ -10,6 +10,7 @@
         "browser-sync": "^2.18.13",
         "clean-css": "^4.1.9",
         "cli-output": "^1.0.0",
+        "jscs": "^3.0.7",
         "jshint": "^2.9.5",
         "node-notifier": "^5.1.2",
         "postcss-cssnext": "^3.0.2",

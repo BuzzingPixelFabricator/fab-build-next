@@ -40,8 +40,13 @@ if (FAB.config.enableJs) {
 }
 
 // Run JSHint
-if (FAB.config.enableJsHint) {
+if (FAB.config.enableJSHint) {
     require('./jshint.js');
+}
+
+// Run JSHint
+if (FAB.config.enableJSCS) {
+    require('./jscs.js');
 }
 
 // Run browser sync
