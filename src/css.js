@@ -42,10 +42,13 @@ function runCss() {
         FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(file), true);
     });
 
+    // Get the concatenated file
+    bundleContents = FAB.readFile(fabCacheCssBundleFile).toString();
+
     // Minify the concatenated file
-    bundleContents= new CleanCSS()
-        .minify(FAB.readFile(fabCacheCssBundleFile).toString())
-        .styles;
+    if (FAB.config.minifyCss) {
+        bundleContents = new CleanCSS().minify(bundleContents).styles;
+    }
 
     // Process CSS with postcss
     postcss([postcssNext]).process(bundleContents).then(function(result) {
@@ -79,6 +82,6 @@ watch.watchTree(
     function() {
         FAB.out.info('Compiling CSS...');
         runCss();
-        FAB.out.success('CSS compiled, watching for CSS changes...');
+        FAB.out.success("CSS compiled, watching for CSS changes...\n");
     }
 );

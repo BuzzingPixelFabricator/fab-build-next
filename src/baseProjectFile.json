@@ -1,5 +1,6 @@
 {
     "assets": "public/assets",
     "source": "assetsSource",
-    "enableCss": true
+    "enableCss": true,
+    "minifyCss": true
 }
