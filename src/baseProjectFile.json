@@ -1,0 +1,5 @@
+{
+    "assets": "public/assets",
+    "source": "assetsSource",
+    "enableCss": true
+}
