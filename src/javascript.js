@@ -67,6 +67,14 @@ function runJs() {
 
     processed = UglifyJS.minify(code, options);
 
+    if (processed.error) {
+        FAB.out.error('There was an error compiling Javascript');
+        FAB.out.prettyJSON(processed.error);
+        FAB.notify('JS Compile Error', true);
+        FAB.out.error('Watching for JS changes...');
+        return;
+    }
+
     if (FAB.config.sourceMaps) {
         FAB.writeFile(jsMapOutput, processed.map);
         sourceMapCode = '\n//# sourceMappingURL=script.min.js.map';
@@ -76,6 +84,8 @@ function runJs() {
 
     // Send notification
     FAB.notify('JS Compiled');
+
+    FAB.out.success('JS compiled, watching for JS changes...');
 }
 
 // Create the output directory
@@ -96,6 +106,5 @@ watch.watchTree(
     function() {
         FAB.out.info('Compiling JS...');
         runJs();
-        FAB.out.success('JS compiled, watching for JS changes...');
     }
 );
