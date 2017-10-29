@@ -14,6 +14,7 @@ var path = require('path');
 var postcss = require('postcss');
 var postcssNext = require('postcss-cssnext');
 var CleanCSS = require('clean-css');
+var watch = require('watch');
 
 // Set up variables
 var fabCacheDirectory = global.projectRoot + '/fabCache';
@@ -25,6 +26,33 @@ var bundleContents = '';
 var cssOutputDir = global.projectRoot + '/' + FAB.config.assets + '/css';
 var cssOutput = cssOutputDir + '/style.min.css';
 var outputDirPath = '';
+
+// Run CSS function
+function runCss() {
+    // Start with the reset if it exists
+    if (FAB.fileExists(customReset)) {
+        FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(customReset));
+    }
+
+    // Add all other CSS files
+    recursive(cssLoc).forEach(function(file) {
+        if (path.extname(file) !== '.css' || file === customReset) {
+            return;
+        }
+        FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(file), true);
+    });
+
+    // Minify the concatenated file
+    bundleContents= new CleanCSS()
+        .minify(FAB.readFile(fabCacheCssBundleFile).toString())
+        .styles;
+
+    // Process CSS with postcss
+    postcss([postcssNext]).process(bundleContents).then(function(result) {
+        // Write the output to the min file
+        FAB.writeFile(cssOutput, result.css);
+    });
+}
 
 // Create the output directory
 cssOutputDir.split('/').forEach(function(path) {
@@ -42,26 +70,15 @@ FAB.mkdirIfNotExists(fabCacheCssDirectory);
 // Create the bundled CSS file
 FAB.writeFile(fabCacheCssBundleFile);
 
-// Start with the reset if it exists
-if (FAB.fileExists(customReset)) {
-    FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(customReset));
-}
-
-// Add all other CSS files
-recursive(cssLoc).forEach(function(file) {
-    if (path.extname(file) !== '.css' || file === customReset) {
-        return;
+// Watch for changes
+watch.watchTree(
+    cssLoc,
+    {
+        interval: 0.5
+    },
+    function() {
+        FAB.out.info('Compiling CSS...');
+        runCss();
+        FAB.out.success('CSS compiled, watching for CSS changes...');
     }
-    FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(file), true);
-});
-
-// Minify the concatenated file
-bundleContents= new CleanCSS()
-    .minify(FAB.readFile(fabCacheCssBundleFile).toString())
-    .styles;
-
-// Process CSS with postcss
-postcss([postcssNext]).process(bundleContents).then(function(result) {
-    // Write the output to the min file
-    FAB.writeFile(cssOutput, result.css);
-});
+);

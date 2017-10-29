@@ -8,7 +8,9 @@
     "–––––––Dependencies": "–––––––––––––",
     "devDependencies": {
         "clean-css": "^4.1.9",
+        "cli-output": "^1.0.0",
         "postcss-cssnext": "^3.0.2",
-        "recursive-readdir-sync": "^1.0.6"
+        "recursive-readdir-sync": "^1.0.6",
+        "watch": "^1.0.2"
     }
 }
