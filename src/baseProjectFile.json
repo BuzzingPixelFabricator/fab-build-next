@@ -3,6 +3,9 @@
     "source": "assetsSource",
     "enableCss": true,
     "minifyCss": true,
+    "enableJs": true,
+    "minifyJs": true,
+    "sourceMaps": true,
     "proxy": false,
     "watch": []
 }

@@ -34,6 +34,12 @@ if (FAB.config.enableCss) {
     require('./css.js');
 }
 
+//  Run Javascript
+if (FAB.config.enableJs) {
+    require('./javascript');
+}
+
+// Run browser sync
 if (FAB.config.proxy !== false) {
     require('./browserSync.js');
 }

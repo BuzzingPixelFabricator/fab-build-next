@@ -54,6 +54,9 @@ function runCss() {
     postcss([postcssNext]).process(bundleContents).then(function(result) {
         // Write the output to the min file
         FAB.writeFile(cssOutput, result.css);
+
+        // Send notification
+        FAB.notify('CSS Compiled');
     });
 }
 
