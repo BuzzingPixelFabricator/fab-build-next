@@ -2,5 +2,7 @@
     "assets": "public/assets",
     "source": "assetsSource",
     "enableCss": true,
-    "minifyCss": true
+    "minifyCss": true,
+    "proxy": false,
+    "watch": []
 }

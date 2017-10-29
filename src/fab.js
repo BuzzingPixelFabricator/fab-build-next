@@ -33,3 +33,7 @@ FAB.writeFile(fabCacheDirectory + '/.gitignore', '*\n');
 if (FAB.config.enableCss) {
     require('./css.js');
 }
+
+if (FAB.config.proxy !== false) {
+    require('./browserSync.js');
+}
