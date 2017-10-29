@@ -1,0 +1,14 @@
+{
+    "–––––––General Configuration": "–––––––––––––",
+    "name": "fab-build-next",
+    "version": "1.0.0",
+    "description": "The next level build process for Fabricator",
+    "author": "TJ Draper",
+    "license": "Apache-2.0",
+    "–––––––Dependencies": "–––––––––––––",
+    "devDependencies": {
+        "clean-css": "^4.1.9",
+        "postcss-cssnext": "^3.0.2",
+        "recursive-readdir-sync": "^1.0.6"
+    }
+}
