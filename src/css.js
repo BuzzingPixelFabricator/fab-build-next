@@ -82,6 +82,6 @@ watch.watchTree(
     function() {
         FAB.out.info('Compiling CSS...');
         runCss();
-        FAB.out.success("CSS compiled, watching for CSS changes...\n");
+        FAB.out.success('CSS compiled, watching for CSS changes...\n');
     }
 );
