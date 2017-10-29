@@ -13,9 +13,6 @@ var path = require('path');
 // Set fab
 FAB = {};
 
-// Set the base config
-require('./config.js');
-
 // Require helpers
 require('fs').readdirSync(__dirname + '/helpers').forEach(function(file) {
     if (path.extname(file) !== '.js') {
@@ -23,6 +20,9 @@ require('fs').readdirSync(__dirname + '/helpers').forEach(function(file) {
     }
     require('./helpers/' + file);
 });
+
+// Set the base config
+require('./config.js');
 
 // Run CSS
 if (FAB.config.enableCss) {
