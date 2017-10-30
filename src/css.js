@@ -15,6 +15,7 @@ var path = require('path');
 var postcssNext = require('postcss-cssnext');
 var CleanCSS = require('clean-css');
 var watch = require('watch');
+var fs = require('fs');
 
 // Set up variables
 var fabCacheDirectory = global.projectRoot + '/fabCache';
@@ -24,6 +25,7 @@ var cssLoc = global.projectRoot + '/' + FAB.config.source + '/css';
 var customReset = cssLoc + '/reset.css';
 var customReset2 = cssLoc + '/reset.pcss';
 var mixinsDir = cssLoc + '/mixins';
+var nodeModulesDir = global.projectRoot + '/node_modules';
 var bundleContents = '';
 var cssOutputDir = global.projectRoot + '/' + FAB.config.assets + '/css';
 var cssOutput = cssOutputDir + '/style.min.css';
@@ -37,6 +39,46 @@ function runCss() {
 
     // Clear out the cache file
     FAB.writeFile(fabCacheCssBundleFile, '');
+
+    // Add module files
+    fs.readdirSync(nodeModulesDir).forEach(function(file) {
+        // Get file stats
+        var dir = nodeModulesDir + '/' + file;
+        var stat = fs.lstatSync(dir);
+        var packageJsonLoc = nodeModulesDir + '/' + file + '/package.json';
+        var packageJson;
+
+        // If this is not a directory, or package.json does not exist,
+        // we can immediately move on
+        if (! stat.isDirectory() || ! FAB.fileExists(packageJsonLoc)) {
+            return;
+        }
+
+        // Get the package json
+        packageJson = require(packageJsonLoc);
+
+        // If post css build key does not exist, we can move on
+        if (! packageJson.fabricatorPostCssBuild ||
+            ! packageJson.fabricatorPostCssBuild.files
+        ) {
+            return;
+        }
+
+        // Iterate through files and add them
+        packageJson.fabricatorPostCssBuild.files.forEach(function(cssFile) {
+            // If the file does not exist, we can stop here
+            if (! FAB.fileExists(dir + '/' + cssFile)) {
+                return;
+            }
+
+            // Add the file to our bundle
+            FAB.writeFile(
+                fabCacheCssBundleFile,
+                FAB.readFile(dir + '/' + cssFile),
+                true
+            );
+        });
+    });
 
     // Add mixins
     recursive(mixinsDir).forEach(function(file) {
