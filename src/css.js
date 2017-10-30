@@ -11,6 +11,7 @@
 // Get Node requirements
 var recursive = require('recursive-readdir-sync');
 var path = require('path');
+var postcssMixins = require('postcss-mixins');
 var postcss = require('postcss');
 var postcssNext = require('postcss-cssnext');
 var CleanCSS = require('clean-css');
@@ -22,6 +23,7 @@ var fabCacheCssDirectory = fabCacheDirectory + '/css';
 var fabCacheCssBundleFile = fabCacheCssDirectory + '/bundle.css';
 var cssLoc = global.projectRoot + '/' + FAB.config.source + '/css';
 var customReset = cssLoc + '/reset.css';
+var customReset2 = cssLoc + '/reset.pcss';
 var bundleContents = '';
 var cssOutputDir = global.projectRoot + '/' + FAB.config.assets + '/css';
 var cssOutput = cssOutputDir + '/style.min.css';
@@ -32,13 +34,18 @@ function runCss() {
     // Start with the reset if it exists
     if (FAB.fileExists(customReset)) {
         FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(customReset));
+    } else if (FAB.fileExists(customReset2)) {
+        FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(customReset2));
     }
 
     // Add all other CSS files
     recursive(cssLoc).forEach(function(file) {
-        if (path.extname(file) !== '.css' || file === customReset) {
+        var ext = path.extname(file);
+
+        if ((ext !== '.css' && ext !== '.pcss') || file === customReset) {
             return;
         }
+
         FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(file), true);
     });
 
