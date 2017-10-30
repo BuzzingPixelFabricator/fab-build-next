@@ -9,10 +9,9 @@
 \*----------------------------------------------------------------------------*/
 
 // Get Node requirements
+FAB.postcss = require('postcss');
 var recursive = require('recursive-readdir-sync');
 var path = require('path');
-var postcssMixins = require('postcss-mixins');
-var postcss = require('postcss');
 var postcssNext = require('postcss-cssnext');
 var CleanCSS = require('clean-css');
 var watch = require('watch');
@@ -24,6 +23,7 @@ var fabCacheCssBundleFile = fabCacheCssDirectory + '/bundle.css';
 var cssLoc = global.projectRoot + '/' + FAB.config.source + '/css';
 var customReset = cssLoc + '/reset.css';
 var customReset2 = cssLoc + '/reset.pcss';
+var mixinsDir = cssLoc + '/mixins';
 var bundleContents = '';
 var cssOutputDir = global.projectRoot + '/' + FAB.config.assets + '/css';
 var cssOutput = cssOutputDir + '/style.min.css';
@@ -31,21 +31,76 @@ var outputDirPath = '';
 
 // Run CSS function
 function runCss() {
+    var postcssMixins;
+    var jsMixins = {};
+    var thisJsMixins;
+
+    // Clear out the cache file
+    FAB.writeFile(fabCacheCssBundleFile, '');
+
+    // Add mixins
+    recursive(mixinsDir).forEach(function(file) {
+        // Get the file extension
+        var ext = path.extname(file);
+
+        // If the file extension is not one of our extensions
+        if (ext !== '.css' && ext !== '.pcss') {
+            // And if it's not a js extension
+            if (ext !== '.js') {
+                return;
+            }
+
+            // If this file is cached, delete the cache
+            if (require.cache[file]) {
+                delete require.cache[file];
+            }
+
+            // Get the mixins
+            thisJsMixins = require(file);
+
+            // If the return type is not an object, we should move on
+            if (typeof thisJsMixins.mixins !== 'object') {
+                return;
+            }
+
+            // Add the mixins to the object
+            for (var mixinName in thisJsMixins.mixins) {
+                jsMixins[mixinName] = thisJsMixins.mixins[mixinName];
+            }
+
+            // End here
+            return;
+        }
+
+        // Add the contents of the file to our concatenated CSS bundle file
+        FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(file), true);
+    });
+
     // Start with the reset if it exists
     if (FAB.fileExists(customReset)) {
-        FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(customReset));
+        FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(customReset), true);
     } else if (FAB.fileExists(customReset2)) {
-        FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(customReset2));
+        FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(customReset2), true);
     }
 
     // Add all other CSS files
     recursive(cssLoc).forEach(function(file) {
+        // Get the file extension
         var ext = path.extname(file);
 
-        if ((ext !== '.css' && ext !== '.pcss') || file === customReset) {
+        // If the file extension is not one of our extensions
+        // or the file is in the mixins directory
+        // or it's the custom reset file, we should ignore it
+        if (
+            (ext !== '.css' && ext !== '.pcss') ||
+            file.indexOf(mixinsDir) === 0 ||
+            file === customReset ||
+            file === customReset2
+        ) {
             return;
         }
 
+        // Add the contents of the file to our concatenated CSS bundle file
         FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(file), true);
     });
 
@@ -57,14 +112,26 @@ function runCss() {
         bundleContents = new CleanCSS().minify(bundleContents).styles;
     }
 
-    // Process CSS with postcss
-    postcss([postcssNext]).process(bundleContents).then(function(result) {
-        // Write the output to the min file
-        FAB.writeFile(cssOutput, result.css);
-
-        // Send notification
-        FAB.notify('CSS Compiled');
+    postcssMixins = require('postcss-mixins')({
+        mixins: jsMixins
     });
+
+    // Process CSS with postcss
+    FAB.postcss([postcssMixins, postcssNext])
+        .process(bundleContents)
+        .then(function(result) {
+            // Write the output to the min file
+            FAB.writeFile(cssOutput, result.css);
+
+            // Send notification
+            FAB.notify('CSS Compiled');
+        })
+        .catch(function(error) {
+            FAB.notify('PostCSS compile error', true);
+            FAB.out.error('There was a PostCSS compile error');
+            console.log(error);
+            FAB.out.error('END PostCSS compile error');
+        });
 }
 
 // Create the output directory
