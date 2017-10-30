@@ -3,6 +3,10 @@
     "source": "assetsSource",
     "enableCss": true,
     "minifyCss": true,
+    "compileCss": {
+        "cssFiles": [],
+        "mixinFiles": []
+    },
     "enableJs": true,
     "minifyJs": true,
     "enableJSHint": true,

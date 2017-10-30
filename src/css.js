@@ -103,6 +103,20 @@ function runCss() {
             return;
         }
 
+        // If we have a mixinFiles key, we should do some stuff
+        if (packageJson.fabricatorPostCssBuild.mixinFiles) {
+            // Iterate through files and parse them
+            packageJson.fabricatorPostCssBuild.mixinFiles.forEach(function(mixinFile) {
+                // If the file does not exist, we can stop here
+                if (! FAB.fileExists(dir + '/' + mixinFile)) {
+                    return;
+                }
+
+                // Parse the file
+                parseMixinsFile(dir + '/' + mixinFile);
+            });
+        }
+
         // If we have a cssFiles key, we should do some stuff
         if (packageJson.fabricatorPostCssBuild.cssFiles) {
             // Iterate through files and add them
@@ -120,20 +134,6 @@ function runCss() {
                 );
             });
         }
-
-        // If we have a mixinFiles key, we should do some stuff
-        if (packageJson.fabricatorPostCssBuild.mixinFiles) {
-            // Iterate through files and parse them
-            packageJson.fabricatorPostCssBuild.mixinFiles.forEach(function(mixinFile) {
-                // If the file does not exist, we can stop here
-                if (! FAB.fileExists(dir + '/' + mixinFile)) {
-                    return;
-                }
-
-                // Parse the file
-                parseMixinsFile(dir + '/' + mixinFile);
-            });
-        }
     });
 
     // Parse mixins
@@ -141,11 +141,37 @@ function runCss() {
         parseMixinsFile(file);
     });
 
+    // Compile CSS mixins
+    if (FAB.config.compileCss.mixinFiles) {
+        FAB.config.compileCss.mixinFiles.forEach(function(file) {
+            var thisFile = global.projectRoot + '/' + file;
+
+            if (! FAB.fileExists(thisFile)) {
+                return;
+            }
+
+            parseMixinsFile(thisFile);
+        });
+    }
+
     // Start with the reset if it exists
     if (FAB.fileExists(customReset)) {
         FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(customReset), true);
     } else if (FAB.fileExists(customReset2)) {
         FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(customReset2), true);
+    }
+
+    // Compile CSS
+    if (FAB.config.compileCss.cssFiles) {
+        FAB.config.compileCss.cssFiles.forEach(function(file) {
+            var thisFile = global.projectRoot + '/' + file;
+
+            if (! FAB.fileExists(thisFile)) {
+                return;
+            }
+
+            FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(thisFile), true);
+        });
     }
 
     // Add all other CSS files
