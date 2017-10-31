@@ -1,11 +1,21 @@
 {
-    "–––––––General Configuration": "–––––––––––––",
     "name": "fab-build-next",
     "version": "1.0.0",
     "description": "The next level build process for Fabricator",
-    "author": "TJ Draper",
+    "homepage": "https://github.com/BuzzingPixelFabricator/fab-build-next",
+    "bugs": "https://github.com/BuzzingPixelFabricator/fab-build-next/issues",
     "license": "Apache-2.0",
-    "–––––––Dependencies": "–––––––––––––",
+    "author": "TJ Draper",
+    "contributors": [
+        {
+            "name": "TJ Draper",
+            "url": "https://buzzingpixel.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BuzzingPixelFabricator/fab-build-next.git"
+    },
     "dependencies": {
         "browser-sync": "^2.18.13",
         "clean-css": "^4.1.9",
