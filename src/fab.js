@@ -28,11 +28,6 @@ require('fs').readdirSync(__dirname + '/helpers').forEach(function(file) {
 // Set the base config
 require('./config.js');
 
-// Make sure fab cache directory exists and is gitignored
-var fabCacheDirectory = global.projectRoot + '/fabCache';
-FAB.mkdirIfNotExists(fabCacheDirectory);
-FAB.writeFile(fabCacheDirectory + '/.gitignore', '*\n');
-
 // Run CSS
 if (FAB.config.enableCss) {
     require('./css.js');

@@ -18,8 +18,8 @@ var UglifyJS = require('uglify-js');
 var jsLoc = global.projectRoot + '/' + FAB.config.source + '/js';
 var setupLoc = jsLoc + '/setup.js';
 var mainLoc = jsLoc + '/main.js';
-var jsOutputDir = global.projectRoot + '/' + FAB.config.assets + '/js';
-var jsOutput = jsOutputDir + '/script.min.js';
+var jsOutputDir = FAB.internalConfig.jsOutputDir;
+var jsOutput = FAB.internalConfig.jsOutput;
 var jsMapOutput = jsOutputDir + '/script.min.js.map';
 var outputDirPath = '';
 

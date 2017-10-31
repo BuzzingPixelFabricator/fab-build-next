@@ -45,3 +45,19 @@ for (var key in baseProjectFile) {
 }
 
 FAB.config = config;
+
+// Set up internal config
+FAB.internalConfig = {};
+
+// Set up the primary cache directory
+FAB.internalConfig.fabCacheDirectory = global.projectRoot + '/fabCache';
+FAB.mkdirIfNotExists(FAB.internalConfig.fabCacheDirectory);
+FAB.writeFile(FAB.internalConfig.fabCacheDirectory + '/.gitignore', '*\n');
+
+// Set up CSS output
+FAB.internalConfig.cssOutputDir = global.projectRoot + '/' + FAB.config.assets + '/css';
+FAB.internalConfig.cssOutput = FAB.internalConfig.cssOutputDir + '/style.min.css';
+
+// Set up JS output
+FAB.internalConfig.jsOutputDir = global.projectRoot + '/' + FAB.config.assets + '/js';
+FAB.internalConfig.jsOutput = FAB.internalConfig.jsOutputDir + '/script.min.js';

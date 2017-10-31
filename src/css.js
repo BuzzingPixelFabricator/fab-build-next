@@ -16,7 +16,7 @@ var postcssNext = require('postcss-cssnext');
 var CleanCSS = require('clean-css');
 
 // Set up variables
-var fabCacheDirectory = global.projectRoot + '/fabCache';
+var fabCacheDirectory = FAB.internalConfig.fabCacheDirectory;
 var fabCacheCssDirectory = fabCacheDirectory + '/css';
 var fabCacheCssBundleFile = fabCacheCssDirectory + '/bundle.css';
 var cssLoc = global.projectRoot + '/' + FAB.config.source + '/css';
@@ -25,8 +25,8 @@ var customReset2 = cssLoc + '/reset.pcss';
 var mixinsDir = cssLoc + '/mixins';
 var nodeModulesDir = global.projectRoot + '/node_modules';
 var bundleContents = '';
-var cssOutputDir = global.projectRoot + '/' + FAB.config.assets + '/css';
-var cssOutput = cssOutputDir + '/style.min.css';
+var cssOutputDir = FAB.internalConfig.cssOutputDir;
+var cssOutput = FAB.internalConfig.cssOutput;
 var outputDirPath = '';
 var jsMixins = {};
 
@@ -234,8 +234,7 @@ cssOutputDir.split('/').forEach(function(path) {
     FAB.mkdirIfNotExists(outputDirPath);
 });
 
-// Create the fabCache directories
-FAB.mkdirIfNotExists(fabCacheDirectory);
+// Create the css cache directory
 FAB.mkdirIfNotExists(fabCacheCssDirectory);
 
 // Create the bundled CSS file
