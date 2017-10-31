@@ -19,5 +19,8 @@
         "recursive-readdir-sync": "^1.0.6",
         "uglify-js": "^3.1.5",
         "watch": "^1.0.2"
+    },
+    "dependencies": {
+        "fs-extra": "^4.0.2"
     }
 }

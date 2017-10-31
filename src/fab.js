@@ -28,6 +28,9 @@ require('fs').readdirSync(__dirname + '/helpers').forEach(function(file) {
 // Set the base config
 require('./config.js');
 
+// Run initial cleanup
+require('./initialCleanup');
+
 // Run CSS
 if (FAB.config.enableCss) {
     require('./css.js');

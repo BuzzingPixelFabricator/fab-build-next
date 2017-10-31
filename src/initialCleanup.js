@@ -9,5 +9,6 @@
 \*----------------------------------------------------------------------------*/
 
 /* global FAB:true */
+/* global global */
 
-FAB.fs = require('fs-extra');
+FAB.fs.emptyDirSync(global.projectRoot + '/' + FAB.config.assets);
