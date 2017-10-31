@@ -54,6 +54,9 @@ FAB.internalConfig.fabCacheDirectory = global.projectRoot + '/fabCache';
 FAB.mkdirIfNotExists(FAB.internalConfig.fabCacheDirectory);
 FAB.writeFile(FAB.internalConfig.fabCacheDirectory + '/.gitignore', '*\n');
 
+// Libsync
+FAB.internalConfig.libSyncWatch = [];
+
 // Set up CSS output
 FAB.internalConfig.cssOutputDir = global.projectRoot + '/' + FAB.config.assets + '/css';
 FAB.internalConfig.cssOutput = FAB.internalConfig.cssOutputDir + '/style.min.css';

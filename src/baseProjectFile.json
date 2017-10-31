@@ -1,6 +1,11 @@
 {
     "assets": "public/assets",
     "source": "assetsSource",
+    "libSync": [
+        "assetsSource/fonts",
+        "assetsSource/img",
+        "assetsSource/lib"
+    ],
     "enableCss": true,
     "minifyCss": true,
     "compileCss": {

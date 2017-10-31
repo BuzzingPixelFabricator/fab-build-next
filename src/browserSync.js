@@ -18,6 +18,12 @@ var watchFiles = [
     FAB.internalConfig.jsOutput
 ];
 
+if (FAB.internalConfig.libSyncWatch.length) {
+    FAB.internalConfig.libSyncWatch.forEach(function(watchPath) {
+        watchFiles.push(watchPath);
+    });
+}
+
 FAB.config.watch.forEach(function(file) {
     watchFiles.push(global.projectRoot + '/' + file);
 });

@@ -9,7 +9,6 @@
 \*----------------------------------------------------------------------------*/
 
 /* global FAB:true */
-/* global global */
 /* global __dirname */
 
 var path = require('path');
@@ -30,6 +29,13 @@ require('./config.js');
 
 // Run initial cleanup
 require('./initialCleanup');
+
+// Run lib sync
+if (typeof FAB.config.libSync === 'object' &&
+    FAB.config.libSync.constructor === Array
+) {
+    require('./libSync.js');
+}
 
 // Run CSS
 if (FAB.config.enableCss) {
