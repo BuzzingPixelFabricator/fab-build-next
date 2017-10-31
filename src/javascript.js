@@ -93,6 +93,19 @@ function runJs() {
         });
     });
 
+    // Add js build files
+    FAB.config.jsBuild.forEach(function(file) {
+        var fileLoc = global.projectRoot + '/' + files;
+
+        // If the file does not exist, we can stop here
+        if (! FAB.fileExists(fileLoc)) {
+            return;
+        }
+
+        // Add file content
+        code[file] = FAB.readFile(fileLoc).toString();
+    });
+
     // Add all other JS files except main
     FAB.recursive(jsLoc).forEach(function(file) {
         if (FAB.path.extname(file) !== '.js' ||

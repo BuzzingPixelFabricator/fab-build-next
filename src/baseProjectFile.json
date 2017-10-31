@@ -15,6 +15,7 @@
     "enableJs": true,
     "minifyJs": true,
     "jsNamespace": "FAB",
+    "jsBuild": [],
     "enableJSHint": true,
     "enableJSCS": true,
     "sourceMaps": true,
