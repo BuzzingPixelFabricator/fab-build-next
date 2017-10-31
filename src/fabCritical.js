@@ -18,6 +18,12 @@ require('./fabSetup');
 // Get critical
 var critical = require('critical');
 
+// Get URL
+var nodeUrl = require('url');
+
+// Get json
+var getJSON = require('get-json');
+
 // Set up config
 var config = {
     file: '',
@@ -85,4 +91,40 @@ if (config.file) {
     }
 
     critical.generate(criticalConfig);
+}
+
+if (config.jsonUrl) {
+    getJSON(config.jsonUrl, function(err, resp) {
+        resp.forEach(function(url) {
+            var parsedUrl = nodeUrl.parse(url);
+            var fileOutputPath = global.projectRoot + '/' + FAB.config.critical.destination + parsedUrl.pathname;
+            var fileOutputFile;
+            var mkPath = '';
+
+            if (parsedUrl.pathname !== '/') {
+                fileOutputFile = fileOutputPath + '/style.min.css';
+            } else {
+                fileOutputFile = fileOutputPath + 'style.min.css';
+            }
+
+            fileOutputPath.split('/').forEach(function(path) {
+                if (! path) {
+                    return;
+                }
+                mkPath += '/' + path;
+                FAB.mkdirIfNotExists(mkPath);
+            });
+
+            FAB.writeFile(fileOutputFile, '');
+
+            criticalConfig.src = url;
+            criticalConfig.dest = fileOutputFile;
+
+            if (config.cssFile) {
+                criticalConfig.css = [global.projectRoot + '/' + config.cssFile];
+            }
+
+            critical.generate(criticalConfig);
+        });
+    });
 }

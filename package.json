@@ -12,6 +12,7 @@
         "cli-output": "^1.0.0",
         "critical": "^0.9.1",
         "fs-extra": "^4.0.2",
+        "get-json": "^1.0.0",
         "jscs": "^3.0.7",
         "jshint": "^2.9.5",
         "node-notifier": "^5.1.2",
