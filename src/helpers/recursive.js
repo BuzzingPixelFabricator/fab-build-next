@@ -10,8 +10,4 @@
 
 /* global FAB:true */
 
-FAB.mkdirIfNotExists = function(dir) {
-    if (! FAB.fs.existsSync(dir)) {
-        FAB.fs.mkdirSync(dir);
-    }
-};
+FAB.recursive = require('recursive-readdir-sync');

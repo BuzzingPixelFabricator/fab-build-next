@@ -13,11 +13,8 @@
 /* global JSON */
 
 // Get Node requirements
-var recursive = require('recursive-readdir-sync');
-var path = require('path');
 var Checker = require('jscs');
 var checker = new Checker();
-var watch = require('watch');
 
 // Set up variables
 var jsLoc = global.projectRoot + '/' + FAB.config.source + '/js';
@@ -42,9 +39,9 @@ if (options) {
 // Function for running JSHint
 function runJSCS() {
     // Iterate through the JS files
-    recursive(jsLoc).forEach(function(file) {
+    FAB.recursive(jsLoc).forEach(function(file) {
         // If this is not a JS file, we can skip it
-        if (path.extname(file) !== '.js') {
+        if (FAB.path.extname(file) !== '.js') {
             return;
         }
 
@@ -77,7 +74,7 @@ function runJSCS() {
 }
 
 // Watch for changes
-watch.watchTree(
+FAB.watch.watchTree(
     jsLoc,
     {
         interval: 0.5

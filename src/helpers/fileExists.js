@@ -11,5 +11,5 @@
 /* global FAB:true */
 
 FAB.fileExists = function(path) {
-    return require('fs').existsSync(path);
+    return FAB.fs.existsSync(path);
 };

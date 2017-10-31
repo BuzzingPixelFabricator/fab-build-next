@@ -13,9 +13,6 @@
 
 // Get Node requirements
 var UglifyJS = require('uglify-js');
-var recursive = require('recursive-readdir-sync');
-var path = require('path');
-var watch = require('watch');
 
 // Set up variables
 var jsLoc = global.projectRoot + '/' + FAB.config.source + '/js';
@@ -53,8 +50,8 @@ function runJs() {
     }
 
     // Add all other JS files except main
-    recursive(jsLoc).forEach(function(file) {
-        if (path.extname(file) !== '.js' ||
+    FAB.recursive(jsLoc).forEach(function(file) {
+        if (FAB.path.extname(file) !== '.js' ||
             file === setupLoc ||
             file === mainLoc
         ) {
@@ -103,7 +100,7 @@ jsOutputDir.split('/').forEach(function(path) {
 });
 
 // Watch for changes
-watch.watchTree(
+FAB.watch.watchTree(
     jsLoc,
     {
         interval: 0.5

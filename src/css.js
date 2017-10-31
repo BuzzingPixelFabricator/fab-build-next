@@ -12,13 +12,8 @@
 /* global global */
 
 // Get Node requirements
-FAB.postcss = require('postcss');
-var recursive = require('recursive-readdir-sync');
-var path = require('path');
 var postcssNext = require('postcss-cssnext');
 var CleanCSS = require('clean-css');
-var watch = require('watch');
-var fs = require('fs');
 
 // Set up variables
 var fabCacheDirectory = global.projectRoot + '/fabCache';
@@ -38,7 +33,7 @@ var jsMixins = {};
 // Function for parsing mixins files
 function parseMixinsFile(file) {
     // Get the file extension
-    var ext = path.extname(file);
+    var ext = FAB.path.extname(file);
     var thisJsMixins;
 
     // If the file extension is not one of our extensions
@@ -85,10 +80,10 @@ function runCss() {
     FAB.writeFile(fabCacheCssBundleFile, '');
 
     // Add module files
-    fs.readdirSync(nodeModulesDir).forEach(function(file) {
+    FAB.fs.readdirSync(nodeModulesDir).forEach(function(file) {
         // Get file stats
         var dir = nodeModulesDir + '/' + file;
-        var stat = fs.lstatSync(dir);
+        var stat = FAB.fs.lstatSync(dir);
         var packageJsonLoc = nodeModulesDir + '/' + file + '/package.json';
         var packageJson;
 
@@ -140,7 +135,7 @@ function runCss() {
     });
 
     // Parse mixins
-    recursive(mixinsDir).forEach(function(file) {
+    FAB.recursive(mixinsDir).forEach(function(file) {
         parseMixinsFile(file);
     });
 
@@ -178,9 +173,9 @@ function runCss() {
     }
 
     // Add all other CSS files
-    recursive(cssLoc).forEach(function(file) {
+    FAB.recursive(cssLoc).forEach(function(file) {
         // Get the file extension
-        var ext = path.extname(file);
+        var ext = FAB.path.extname(file);
 
         // If the file extension is not one of our extensions
         // or the file is in the mixins directory
@@ -247,7 +242,7 @@ FAB.mkdirIfNotExists(fabCacheCssDirectory);
 FAB.writeFile(fabCacheCssBundleFile);
 
 // Watch for changes
-watch.watchTree(
+FAB.watch.watchTree(
     cssLoc,
     {
         interval: 0.5

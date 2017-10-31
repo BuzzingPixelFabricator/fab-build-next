@@ -8,11 +8,6 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
-// Get Node requirements
-var recursive = require('recursive-readdir-sync');
-var path = require('path');
-var watch = require('watch');
-
 /* global FAB:true */
 /* global global */
 /* global JSON */
@@ -30,9 +25,9 @@ if (FAB.fileExists(jshintRcPath)) {
 // Function for running JSHint
 function runJsHint() {
     // Iterate through the JS files
-    recursive(jsLoc).forEach(function(file) {
+    FAB.recursive(jsLoc).forEach(function(file) {
         // If this is not a JS file, we can skip it
-        if (path.extname(file) !== '.js') {
+        if (FAB.path.extname(file) !== '.js') {
             return;
         }
 
@@ -59,7 +54,7 @@ function runJsHint() {
 }
 
 // Watch for changes
-watch.watchTree(
+FAB.watch.watchTree(
     jsLoc,
     {
         interval: 0.5
