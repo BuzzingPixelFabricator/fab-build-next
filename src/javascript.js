@@ -18,6 +18,7 @@ var UglifyJS = require('uglify-js');
 var jsLoc = global.projectRoot + '/' + FAB.config.source + '/js';
 var setupLoc = jsLoc + '/setup.js';
 var mainLoc = jsLoc + '/main.js';
+var nodeModulesDir = global.projectRoot + '/node_modules';
 var jsOutputDir = FAB.internalConfig.jsOutputDir;
 var jsOutput = FAB.internalConfig.jsOutput;
 var jsMapOutput = jsOutputDir + '/script.min.js.map';
@@ -52,6 +53,45 @@ function runJs() {
         name = setupLoc.slice(setupLoc.indexOf(replacer) + replacer.length);
         code[name] = FAB.readFile(setupLoc).toString();
     }
+
+    // Add module files
+    FAB.fs.readdirSync(nodeModulesDir).forEach(function(file) {
+        // Get file stats
+        var dir = nodeModulesDir + '/' + file;
+        var stat = FAB.fs.lstatSync(dir);
+        var packageJsonLoc = nodeModulesDir + '/' + file + '/package.json';
+        var packageJson;
+
+        // If this is not a directory, or package.json does not exist,
+        // we can immediately move on
+        if (! stat.isDirectory() || ! FAB.fileExists(packageJsonLoc)) {
+            return;
+        }
+
+        // Get the package json
+        packageJson = require(packageJsonLoc);
+
+        // If we don't have a fabricatorJsBuild, we should stop
+        if (! packageJson.fabricatorJsBuild ||
+            ! packageJson.fabricatorJsBuild.files
+        ) {
+            return;
+        }
+
+        // Iterate through files
+        packageJson.fabricatorJsBuild.files.forEach(function(jsFileCandidate) {
+            // Add the directory to the path
+            jsFileCandidate = dir + '/' + jsFileCandidate;
+
+            // If the file does not exist, we can stop here
+            if (! FAB.fileExists(jsFileCandidate)) {
+                return;
+            }
+
+            // Add file content
+            code[jsFileCandidate] = FAB.readFile(jsFileCandidate).toString();
+        });
+    });
 
     // Add all other JS files except main
     FAB.recursive(jsLoc).forEach(function(file) {
