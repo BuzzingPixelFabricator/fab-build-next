@@ -20,5 +20,8 @@
     "enableJSCS": true,
     "sourceMaps": true,
     "proxy": false,
-    "watch": []
+    "watch": [],
+    "critical": {
+        "destination": "public/criticalCss"
+    }
 }

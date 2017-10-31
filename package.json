@@ -6,10 +6,12 @@
     "author": "TJ Draper",
     "license": "Apache-2.0",
     "–––––––Dependencies": "–––––––––––––",
-    "devDependencies": {
+    "dependencies": {
         "browser-sync": "^2.18.13",
         "clean-css": "^4.1.9",
         "cli-output": "^1.0.0",
+        "critical": "^0.9.1",
+        "fs-extra": "^4.0.2",
         "jscs": "^3.0.7",
         "jshint": "^2.9.5",
         "node-notifier": "^5.1.2",
@@ -20,8 +22,5 @@
         "sync-directory": "^1.0.4",
         "uglify-js": "^3.1.5",
         "watch": "^1.0.2"
-    },
-    "dependencies": {
-        "fs-extra": "^4.0.2"
     }
 }
