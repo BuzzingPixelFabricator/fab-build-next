@@ -43,6 +43,10 @@ function runJs() {
 
     FAB.out.info('Compiling JS...');
 
+    // Make sure FAB is defined
+    code.fabNameSpace1 = "window.FABNAMESPACE = '" + FAB.config.jsNamespace + "';";
+    code.fabNameSpace2 = 'window[window.FABNAMESPACE] = window.window[window.FABNAMESPACE] || {};';
+
     // Start with the setup file if it exists
     if (FAB.fileExists(setupLoc)) {
         name = setupLoc.slice(setupLoc.indexOf(replacer) + replacer.length);
