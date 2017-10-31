@@ -8,6 +8,9 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
+/* global FAB:true */
+/* global __dirname */
+
 FAB.notify = function(message, isError) {
     var notifier = require('node-notifier');
     var title = 'Fabricator';

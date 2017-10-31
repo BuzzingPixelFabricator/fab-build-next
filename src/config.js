@@ -8,6 +8,9 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
+/* global FAB:true */
+/* global global */
+
 // Get the base project file
 var baseProjectFile = require('./baseProjectFile.json');
 

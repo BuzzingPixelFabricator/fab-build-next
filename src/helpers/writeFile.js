@@ -8,6 +8,8 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
+/* global FAB:true */
+
 FAB.writeFile = function(path, content, concat) {
     if (! content) {
         content = '';

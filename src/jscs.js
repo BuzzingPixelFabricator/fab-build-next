@@ -8,10 +8,14 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
+/* global FAB:true */
+/* global global */
+/* global JSON */
+
 // Get Node requirements
 var recursive = require('recursive-readdir-sync');
 var path = require('path');
-var Checker = require("jscs");
+var Checker = require('jscs');
 var checker = new Checker();
 var watch = require('watch');
 

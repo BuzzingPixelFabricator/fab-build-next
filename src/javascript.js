@@ -8,8 +8,11 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
+/* global FAB:true */
+/* global global */
+
 // Get Node requirements
-var UglifyJS = require("uglify-js");
+var UglifyJS = require('uglify-js');
 var recursive = require('recursive-readdir-sync');
 var path = require('path');
 var watch = require('watch');
@@ -40,6 +43,8 @@ function runJs() {
     var name;
     var processed;
     var sourceMapCode = '';
+
+    FAB.out.info('Compiling JS...');
 
     // Start with the setup file if it exists
     if (FAB.fileExists(setupLoc)) {
@@ -104,7 +109,6 @@ watch.watchTree(
         interval: 0.5
     },
     function() {
-        FAB.out.info('Compiling JS...');
         runJs();
     }
 );

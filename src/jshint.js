@@ -13,6 +13,10 @@ var recursive = require('recursive-readdir-sync');
 var path = require('path');
 var watch = require('watch');
 
+/* global FAB:true */
+/* global global */
+/* global JSON */
+
 // Set up variables
 var jsLoc = global.projectRoot + '/' + FAB.config.source + '/js';
 var replacer = global.projectRoot + '/';

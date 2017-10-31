@@ -8,6 +8,9 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
+/* global FAB:true */
+/* global global */
+
 // Get Node requirements
 FAB.postcss = require('postcss');
 var recursive = require('recursive-readdir-sync');

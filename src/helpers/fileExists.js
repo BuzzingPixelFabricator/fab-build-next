@@ -8,6 +8,8 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
+/* global FAB:true */
+
 FAB.fileExists = function(path) {
     return require('fs').existsSync(path);
 };

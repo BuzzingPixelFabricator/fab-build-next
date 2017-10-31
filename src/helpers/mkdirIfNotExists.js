@@ -8,6 +8,8 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
+/* global FAB:true */
+
 FAB.mkdirIfNotExists = function(dir) {
     var fs = require('fs');
 

@@ -8,7 +8,10 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
-var browserSync = require("browser-sync").create();
+/* global FAB:true */
+/* global global */
+
+var browserSync = require('browser-sync').create();
 
 var cssOutputDir = global.projectRoot + '/' + FAB.config.assets + '/css';
 var cssOutput = cssOutputDir + '/style.min.css';

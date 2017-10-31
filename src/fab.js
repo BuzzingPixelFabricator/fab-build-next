@@ -8,6 +8,10 @@
     # This file is an example and not required
 \*----------------------------------------------------------------------------*/
 
+/* global FAB:true */
+/* global global */
+/* global __dirname */
+
 var path = require('path');
 
 // Set fab
