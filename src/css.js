@@ -115,6 +115,26 @@ function runCss() {
             });
         }
 
+        // If we have a reset key, we should do some stuff
+        if (packageJson.fabricatorPostCssBuild.cssResetFiles) {
+            // Iterate through files and add them
+            packageJson.fabricatorPostCssBuild.cssResetFiles.forEach(function(cssFile) {
+                // If the file does not exist, we can stop here
+                if (! FAB.fileExists(dir + '/' + cssFile)) {
+                    return;
+                }
+
+                // Get the previous bundle contents (we want the reset to come first
+                var prevContents = FAB.readFile(fabCacheCssBundleFile).toString();
+
+                // Add the file to our bundle
+                FAB.writeFile(
+                    fabCacheCssBundleFile,
+                    FAB.readFile(dir + '/' + cssFile).toString() + prevContents
+                );
+            });
+        }
+
         // If we have a cssFiles key, we should do some stuff
         if (packageJson.fabricatorPostCssBuild.cssFiles) {
             // Iterate through files and add them
