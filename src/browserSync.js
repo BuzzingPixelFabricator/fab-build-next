@@ -18,6 +18,22 @@ var watchFiles = [
     FAB.internalConfig.jsOutput
 ];
 
+var ignorePatterns = [
+    '*.diff',
+    '*.err',
+    '*.log',
+    '*.orig',
+    '*.rej',
+    '*.swo',
+    '*.swp',
+    '*.vi',
+    '*.cache',
+    '*.DS_Store',
+    '*.tmp',
+    '*error_log',
+    '*Thumbs.db'
+];
+
 if (FAB.internalConfig.libSyncWatch.length) {
     FAB.internalConfig.libSyncWatch.forEach(function(watchPath) {
         watchFiles.push(watchPath);
@@ -28,10 +44,20 @@ FAB.config.watch.forEach(function(file) {
     watchFiles.push(global.projectRoot + '/' + file);
 });
 
+ignorePatterns.forEach(function(ignore) {
+    watchFiles.push('!' + ignore);
+});
+
 browserSync.init({
     files: watchFiles,
     ghostMode: false,
     injectChanges: true,
     notify: false,
-    proxy: FAB.config.proxy
+    proxy: FAB.config.proxy,
+    reloadDelay: 100,
+    reloadDebounce: 100,
+    reloadThrottle: 1000,
+    watchOptions: {
+        ignored: '.DS_Store'
+    }
 });
