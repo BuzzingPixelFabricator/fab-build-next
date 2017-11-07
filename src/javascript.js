@@ -127,10 +127,25 @@ function runJs() {
     processed = UglifyJS.minify(code, options);
 
     if (processed.error) {
-        FAB.out.error('There was an error compiling Javascript');
-        FAB.out.prettyJSON(processed.error);
         FAB.notify('JS Compile Error', true);
-        FAB.out.error('Watching for JS changes...');
+        FAB.out.error('There was an error compiling Javascript');
+        FAB.out.error('Error: ' + processed.error.message);
+        FAB.out.error('File: ' + processed.error.filename);
+        FAB.out.error('Line: ' + processed.error.line);
+        FAB.out.error('Column: ' + processed.error.col);
+        FAB.out.error('Position: ' + processed.error.pos);
+
+        FAB.postErrorMsg([
+            'Project: ' + FAB.config.postErrorsTo.projectName,
+            'Error type: JS Compile Error',
+            'Error: ' + processed.error.message,
+            'File: ' + processed.error.filename,
+            'Line: ' + processed.error.line,
+            'Column: ' + processed.error.col,
+            'Position: ' + processed.error.pos
+        ]);
+
+        FAB.out.success('Watching for JS changes...');
         return;
     }
 

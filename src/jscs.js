@@ -67,6 +67,11 @@ function runJSCS() {
         results.getErrorList().forEach(function(error) {
             var colorizeOutput = true;
             console.log(results.explainError(error, colorizeOutput) + '\n');
+            FAB.postErrorMsg([
+                'Project: ' + FAB.config.postErrorsTo.projectName,
+                'JSCS error: ' + fileNamePath,
+                results.explainError(error, false)
+            ]);
         });
 
         FAB.out.error('End JSCS error: ' + fileNamePath);

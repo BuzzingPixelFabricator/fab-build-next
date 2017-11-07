@@ -49,6 +49,26 @@ function runJsHint() {
         FAB.notify('JSHint error', true);
         FAB.out.error('JSHint error: ' + fileNamePath);
         FAB.out.prettyJSON(jshint.JSHINT.errors);
+
+        // Start error message array
+        var errMsg = [
+            'Project: ' + FAB.config.postErrorsTo.projectName,
+            'JSHint error: ' + fileNamePath
+        ];
+
+        // Iterate through errors and push them into the array
+        jshint.JSHINT.errors.forEach(function(obj) {
+            errMsg.push('-------');
+
+            for (var i in obj) {
+                errMsg.push(i + ': ' + obj[i]);
+            }
+        });
+
+        // Post the errors
+        FAB.postErrorMsg(errMsg);
+
+        // That's the end of the error
         FAB.out.error('End JSHint error: ' + fileNamePath);
     });
 }

@@ -1,6 +1,6 @@
 {
     "name": "fab-build-next",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "description": "The next level build process for Fabricator",
     "homepage": "https://github.com/BuzzingPixelFabricator/fab-build-next",
     "bugs": "https://github.com/BuzzingPixelFabricator/fab-build-next/issues",
@@ -30,6 +30,7 @@
         "postcss-cssnext": "^3.0.2",
         "postcss-mixins": "^6.2.0",
         "recursive-readdir-sync": "^1.0.6",
+        "request": "^2.83.0",
         "sync-directory": "^1.0.4",
         "uglify-js": "^3.1.5",
         "watch": "^1.0.2"

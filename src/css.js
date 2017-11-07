@@ -239,7 +239,18 @@ function runCss() {
         .catch(function(error) {
             FAB.notify('PostCSS compile error', true);
             FAB.out.error('There was a PostCSS compile error');
-            console.log(error);
+            FAB.out.error('Error: ' + error.name);
+            FAB.out.error('Reason: ' + error.reason);
+            FAB.out.error('Message: ' + error.message);
+
+            FAB.postErrorMsg([
+                'Project: ' + FAB.config.postErrorsTo.projectName,
+                'Error type: PostCSS compile error',
+                'Error: ' + error.name,
+                'Reason: ' + error.reason,
+                'Message: ' + error.message
+            ]);
+
             FAB.out.error('END PostCSS compile error');
             FAB.out.success('Watching for CSS changes...');
         });

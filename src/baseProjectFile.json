@@ -23,5 +23,11 @@
     "watch": [],
     "critical": {
         "destination": "public/criticalCss"
+    },
+    "postErrorsTo": {
+        "url": false,
+        "projectName": false,
+        "formMessageKey": "message",
+        "formPostData": {}
     }
 }
