@@ -12,6 +12,7 @@
 // Get Node requirements
 var postcssNext = require('postcss-cssnext');
 var CleanCSS = require('clean-css');
+var hexRGBA = require('postcss-hexrgba');
 
 // Set up variables
 var fabCacheDirectory = FAB.internalConfig.fabCacheDirectory;
@@ -224,7 +225,7 @@ function runCss() {
     });
 
     // Process CSS with postcss
-    FAB.postcss([postcssMixins, postcssNext])
+    FAB.postcss([postcssMixins, postcssNext, hexRGBA])
         .process(bundleContents)
         .then(function(result) {
             // Write the output to the min file
