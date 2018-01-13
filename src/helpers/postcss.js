@@ -8,4 +8,5 @@
 
 /* global FAB:true */
 
-FAB.postcss = require('postcss');
+// FAB.postcss = require('postcss');
+FAB.postcss = require('postcss-comment-2/hookRequire');

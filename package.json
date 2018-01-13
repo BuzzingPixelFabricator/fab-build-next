@@ -27,6 +27,7 @@
         "jshint": "^2.9.5",
         "node-notifier": "^5.1.2",
         "postcss": "^6.0.5",
+        "postcss-comment-2": "^1.0.1",
         "postcss-cssnext": "^3.0.2",
         "postcss-hexrgba": "^1.0.0",
         "postcss-mixins": "^6.2.0",
