@@ -71,6 +71,8 @@ function parseMixinsFile(file) {
 // Run CSS function
 function runCss() {
     var postcssMixins;
+    var mediaQueries = [];
+    var mediaQueryCss = {};
     jsMixins = {};
 
     FAB.out.info('Compiling CSS...');
@@ -195,6 +197,8 @@ function runCss() {
     FAB.recursive(cssLoc).forEach(function(file) {
         // Get the file extension
         var ext = FAB.path.extname(file);
+        var parts = file.split('.');
+        var mediaQuery = parseInt(parts[parts.length - 2]) || 0;
 
         // If the file extension is not one of our extensions
         // or the file is in the mixins directory
@@ -208,9 +212,42 @@ function runCss() {
             return;
         }
 
-        // Add the contents of the file to our concatenated CSS bundle file
-        FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(file), true);
+        if (FAB.config.parseMediaQueriesInFileNames) {
+            if (mediaQueries.indexOf(mediaQuery) < 0) {
+                mediaQueries.push(mediaQuery);
+                mediaQueryCss[mediaQuery] = '';
+            }
+
+            mediaQueryCss[mediaQuery] += FAB.readFile(file);
+        } else {
+            // Add the contents of the file to our concatenated CSS bundle file
+            FAB.writeFile(fabCacheCssBundleFile, FAB.readFile(file), true);
+        }
     });
+
+    if (FAB.config.parseMediaQueriesInFileNames) {
+        mediaQueries.sort(function(a, b) {return a - b;}).forEach(function(i) {
+            if (mediaQueryCss[i]) {
+                if (i > 0) {
+                    FAB.writeFile(
+                        fabCacheCssBundleFile,
+                        '\n@media (min-width: ' + i + FAB.config.mediaQueryUnit + ') {\n',
+                        true
+                    );
+                }
+
+                FAB.writeFile(fabCacheCssBundleFile, mediaQueryCss[i], true);
+
+                if (i > 0) {
+                    FAB.writeFile(
+                        fabCacheCssBundleFile,
+                        '}\n',
+                        true
+                    );
+                }
+            }
+        });
+    }
 
     // Get the concatenated file
     bundleContents = FAB.readFile(fabCacheCssBundleFile).toString();

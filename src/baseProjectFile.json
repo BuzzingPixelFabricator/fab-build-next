@@ -8,6 +8,8 @@
     ],
     "enableCss": true,
     "minifyCss": true,
+    "parseMediaQueriesInFileNames": true,
+    "mediaQueryUnit": "px",
     "compileCss": {
         "cssFiles": [],
         "mixinFiles": []
