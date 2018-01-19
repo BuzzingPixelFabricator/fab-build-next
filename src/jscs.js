@@ -15,10 +15,11 @@ var Checker = require('jscs');
 var checker = new Checker();
 
 // Set up variables
-var jsLoc = global.projectRoot + '/' + FAB.config.source + '/js';
-var replacer = global.projectRoot + '/';
-var jscsPath = global.projectRoot + '/.jscs.json';
-var jscsPath2 = global.projectRoot + '/.jscsrc';
+var sep = FAB.path.sep;
+var jsLoc = global.projectRoot + sep + FAB.config.source + sep + 'js';
+var replacer = global.projectRoot + sep;
+var jscsPath = global.projectRoot + sep + '.jscs.json';
+var jscsPath2 = global.projectRoot + sep + '.jscsrc';
 var options;
 
 checker.registerDefaultRules();

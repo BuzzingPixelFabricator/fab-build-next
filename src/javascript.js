@@ -13,13 +13,14 @@
 var UglifyJS = require('uglify-js');
 
 // Set up variables
-var jsLoc = global.projectRoot + '/' + FAB.config.source + '/js';
-var setupLoc = jsLoc + '/setup.js';
-var mainLoc = jsLoc + '/main.js';
-var nodeModulesDir = global.projectRoot + '/node_modules';
+var sep = FAB.path.sep;
+var jsLoc = global.projectRoot + sep + FAB.config.source + sep + 'js';
+var setupLoc = jsLoc + sep + 'setup.js';
+var mainLoc = jsLoc + sep + 'main.js';
+var nodeModulesDir = global.projectRoot + sep + 'node_modules';
 var jsOutputDir = FAB.internalConfig.jsOutputDir;
 var jsOutput = FAB.internalConfig.jsOutput;
-var jsMapOutput = jsOutputDir + '/script.min.js.map';
+var jsMapOutput = jsOutputDir + sep + 'script.min.js.map';
 var outputDirPath = '';
 
 // Set up options
@@ -35,7 +36,7 @@ var options = {
 // Run JS function
 function runJs() {
     var code = {};
-    var replacer = global.projectRoot + '/';
+    var replacer = global.projectRoot + sep;
     var name;
     var processed;
     var sourceMapCode = '';
@@ -55,9 +56,9 @@ function runJs() {
     // Add module files
     FAB.fs.readdirSync(nodeModulesDir).forEach(function(file) {
         // Get file stats
-        var dir = nodeModulesDir + '/' + file;
+        var dir = nodeModulesDir + sep + file;
         var stat = FAB.fs.lstatSync(dir);
-        var packageJsonLoc = nodeModulesDir + '/' + file + '/package.json';
+        var packageJsonLoc = nodeModulesDir + sep + file + sep + 'package.json';
         var packageJson;
 
         // If this is not a directory, or package.json does not exist,
@@ -79,7 +80,7 @@ function runJs() {
         // Iterate through files
         packageJson.fabricatorJsBuild.files.forEach(function(jsFileCandidate) {
             // Add the directory to the path
-            jsFileCandidate = dir + '/' + jsFileCandidate;
+            jsFileCandidate = dir + sep + jsFileCandidate;
 
             // If the file does not exist, we can stop here
             if (! FAB.fileExists(jsFileCandidate)) {
@@ -93,7 +94,7 @@ function runJs() {
 
     // Add js build files
     FAB.config.jsBuild.forEach(function(file) {
-        var fileLoc = global.projectRoot + '/' + files;
+        var fileLoc = global.projectRoot + sep + files;
 
         // If the file does not exist, we can stop here
         if (! FAB.fileExists(fileLoc)) {
@@ -161,12 +162,16 @@ function runJs() {
 }
 
 // Create the output directory
-jsOutputDir.split('/').forEach(function(path) {
+jsOutputDir.split(sep).forEach(function(path, i) {
     if (! path) {
         return;
     }
-    outputDirPath += '/' + path;
-    FAB.mkdirIfNotExists(outputDirPath);
+    if (i === 0 && path.indexOf(':') > -1) {
+        outputDirPath += path;
+    } else {
+        outputDirPath += sep + path;
+        FAB.mkdirIfNotExists(outputDirPath);
+    }
 });
 
 // Watch for changes

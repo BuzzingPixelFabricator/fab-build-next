@@ -36,7 +36,7 @@ if (FAB.config.enableJSHint) {
     require('./jshint.js');
 }
 
-// Run JSHint
+// Run JSCS
 if (FAB.config.enableJSCS) {
     require('./jscs.js');
 }

@@ -11,6 +11,8 @@
 
 var browserSync = require('browser-sync').create();
 
+var sep = FAB.path.sep;
+
 var watchFiles = [
     FAB.internalConfig.cssOutput,
     FAB.internalConfig.jsOutput
@@ -39,7 +41,7 @@ if (FAB.internalConfig.libSyncWatch.length) {
 }
 
 FAB.config.watch.forEach(function(file) {
-    watchFiles.push(global.projectRoot + '/' + file);
+    watchFiles.push(global.projectRoot + sep + file);
 });
 
 ignorePatterns.forEach(function(ignore) {

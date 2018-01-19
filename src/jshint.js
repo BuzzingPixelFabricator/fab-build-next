@@ -11,9 +11,10 @@
 /* global JSON */
 
 // Set up variables
-var jsLoc = global.projectRoot + '/' + FAB.config.source + '/js';
-var replacer = global.projectRoot + '/';
-var jshintRcPath = global.projectRoot + '/.jshintrc';
+var sep = FAB.path.sep;
+var jsLoc = global.projectRoot + sep + FAB.config.source + sep + 'js';
+var replacer = global.projectRoot + sep;
+var jshintRcPath = global.projectRoot + sep + '.jshintrc';
 var options;
 
 if (FAB.fileExists(jshintRcPath)) {

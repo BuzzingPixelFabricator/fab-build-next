@@ -9,7 +9,7 @@
 /* global FAB:true */
 /* global global */
 
-var replacer = FAB.config.source + '/';
+var replacer = FAB.config.source + FAB.path.sep;
 var timers = {};
 
 function runLibSync(srcDir, targetDir) {
@@ -40,8 +40,8 @@ FAB.config.libSync.forEach(function(dir) {
         dest = dir.slice(dir.indexOf(replacer) + replacer.length);
     }
 
-    srcDir = global.projectRoot + '/' + dir;
-    targetDir = global.projectRoot + '/' + FAB.config.assets + '/' + dest;
+    srcDir = global.projectRoot + FAB.path.sep + dir;
+    targetDir = global.projectRoot + FAB.path.sep + FAB.config.assets + FAB.path.sep + dest;
 
     FAB.internalConfig.libSyncWatch.push(srcDir + '/**');
 

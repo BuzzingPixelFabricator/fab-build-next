@@ -9,4 +9,7 @@
 /* global FAB:true */
 /* global global */
 
-FAB.fs.emptyDirSync(global.projectRoot + '/' + FAB.config.assets);
+var nodePath = require('path');
+var sep = nodePath.sep;
+
+FAB.fs.emptyDirSync(global.projectRoot + sep + FAB.config.assets);

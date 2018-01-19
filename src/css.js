@@ -15,14 +15,15 @@ var CleanCSS = require('clean-css');
 var hexRGBA = require('postcss-hexrgba');
 
 // Set up variables
+var sep = FAB.path.sep;
 var fabCacheDirectory = FAB.internalConfig.fabCacheDirectory;
-var fabCacheCssDirectory = fabCacheDirectory + '/css';
-var fabCacheCssBundleFile = fabCacheCssDirectory + '/bundle.css';
-var cssLoc = global.projectRoot + '/' + FAB.config.source + '/css';
-var customReset = cssLoc + '/reset.css';
-var customReset2 = cssLoc + '/reset.pcss';
-var mixinsDir = cssLoc + '/mixins';
-var nodeModulesDir = global.projectRoot + '/node_modules';
+var fabCacheCssDirectory = fabCacheDirectory + sep + 'css';
+var fabCacheCssBundleFile = fabCacheCssDirectory + sep + 'bundle.css';
+var cssLoc = global.projectRoot + sep + FAB.config.source + sep + 'css';
+var customReset = cssLoc + sep + 'reset.css';
+var customReset2 = cssLoc + sep + 'reset.pcss';
+var mixinsDir = cssLoc + sep + 'mixins';
+var nodeModulesDir = global.projectRoot + sep + 'node_modules';
 var bundleContents = '';
 var cssOutputDir = FAB.internalConfig.cssOutputDir;
 var cssOutput = FAB.internalConfig.cssOutput;
@@ -83,9 +84,9 @@ function runCss() {
     // Add module files
     FAB.fs.readdirSync(nodeModulesDir).forEach(function(file) {
         // Get file stats
-        var dir = nodeModulesDir + '/' + file;
+        var dir = nodeModulesDir + sep + file;
         var stat = FAB.fs.lstatSync(dir);
-        var packageJsonLoc = nodeModulesDir + '/' + file + '/package.json';
+        var packageJsonLoc = nodeModulesDir + sep + file + sep + 'package.json';
         var packageJson;
 
         // If this is not a directory, or package.json does not exist,
@@ -107,12 +108,12 @@ function runCss() {
             // Iterate through files and parse them
             packageJson.fabricatorPostCssBuild.mixinFiles.forEach(function(mixinFile) {
                 // If the file does not exist, we can stop here
-                if (! FAB.fileExists(dir + '/' + mixinFile)) {
+                if (! FAB.fileExists(dir + sep + mixinFile)) {
                     return;
                 }
 
                 // Parse the file
-                parseMixinsFile(dir + '/' + mixinFile);
+                parseMixinsFile(dir + sep + mixinFile);
             });
         }
 
@@ -121,7 +122,7 @@ function runCss() {
             // Iterate through files and add them
             packageJson.fabricatorPostCssBuild.cssResetFiles.forEach(function(cssFile) {
                 // If the file does not exist, we can stop here
-                if (! FAB.fileExists(dir + '/' + cssFile)) {
+                if (! FAB.fileExists(dir + sep + cssFile)) {
                     return;
                 }
 
@@ -131,7 +132,7 @@ function runCss() {
                 // Add the file to our bundle
                 FAB.writeFile(
                     fabCacheCssBundleFile,
-                    FAB.readFile(dir + '/' + cssFile).toString() + prevContents
+                    FAB.readFile(dir + sep + cssFile).toString() + prevContents
                 );
             });
         }
@@ -141,14 +142,14 @@ function runCss() {
             // Iterate through files and add them
             packageJson.fabricatorPostCssBuild.cssFiles.forEach(function(cssFile) {
                 // If the file does not exist, we can stop here
-                if (! FAB.fileExists(dir + '/' + cssFile)) {
+                if (! FAB.fileExists(dir + sep + cssFile)) {
                     return;
                 }
 
                 // Add the file to our bundle
                 FAB.writeFile(
                     fabCacheCssBundleFile,
-                    FAB.readFile(dir + '/' + cssFile),
+                    FAB.readFile(dir + sep + cssFile),
                     true
                 );
             });
@@ -163,7 +164,7 @@ function runCss() {
     // Compile CSS mixins
     if (FAB.config.compileCss.mixinFiles) {
         FAB.config.compileCss.mixinFiles.forEach(function(file) {
-            var thisFile = global.projectRoot + '/' + file;
+            var thisFile = global.projectRoot + sep + file;
 
             if (! FAB.fileExists(thisFile)) {
                 return;
@@ -183,7 +184,7 @@ function runCss() {
     // Compile CSS
     if (FAB.config.compileCss.cssFiles) {
         FAB.config.compileCss.cssFiles.forEach(function(file) {
-            var thisFile = global.projectRoot + '/' + file;
+            var thisFile = global.projectRoot + sep + file;
 
             if (! FAB.fileExists(thisFile)) {
                 return;
@@ -293,12 +294,16 @@ function runCss() {
 }
 
 // Create the output directory
-cssOutputDir.split('/').forEach(function(path) {
+cssOutputDir.split(sep).forEach(function(path, i) {
     if (! path) {
         return;
     }
-    outputDirPath += '/' + path;
-    FAB.mkdirIfNotExists(outputDirPath);
+    if (i === 0 && path.indexOf(':') > -1) {
+        outputDirPath += path;
+    } else {
+        outputDirPath += sep + path;
+        FAB.mkdirIfNotExists(outputDirPath);
+    }
 });
 
 // Create the css cache directory
