@@ -17,24 +17,24 @@
         "url": "https://github.com/BuzzingPixelFabricator/fab-build-next.git"
     },
     "dependencies": {
-        "browser-sync": "^2.18.13",
+        "browser-sync": "^2.23.6",
         "clean-css": "^4.1.9",
         "cli-output": "^1.0.0",
         "critical": "^0.9.1",
-        "fs-extra": "^4.0.2",
+        "fs-extra": "^4.0.3",
         "get-json": "^1.0.0",
         "jscs": "^3.0.7",
         "jshint": "^2.9.5",
-        "node-notifier": "^5.1.2",
-        "postcss": "^6.0.5",
+        "node-notifier": "^5.2.1",
+        "postcss": "^6.0.16",
         "postcss-comment-2": "^1.0.1",
-        "postcss-cssnext": "^3.0.2",
+        "postcss-cssnext": "^3.1.0",
         "postcss-hexrgba": "^1.0.0",
         "postcss-mixins": "^6.2.0",
         "recursive-readdir-sync": "^1.0.6",
         "request": "^2.83.0",
-        "sync-directory": "^1.0.4",
-        "uglify-js": "^3.1.5",
+        "sync-directory": "^1.0.6",
+        "uglify-js": "^3.3.9",
         "watch": "^1.0.2"
     }
 }
