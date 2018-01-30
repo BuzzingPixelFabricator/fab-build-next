@@ -94,7 +94,7 @@ function runJs() {
 
     // Add js build files
     FAB.config.jsBuild.forEach(function(file) {
-        var fileLoc = global.projectRoot + sep + files;
+        var fileLoc = global.projectRoot + sep + file;
 
         // If the file does not exist, we can stop here
         if (! FAB.fileExists(fileLoc)) {
