@@ -58,6 +58,7 @@ browserSync.init({
     reloadDebounce: 100,
     reloadThrottle: 1000,
     watchOptions: {
-        ignored: '.DS_Store'
+        ignored: '.DS_Store',
+        usePolling: FAB.config.watchUsesPolling
     }
 });

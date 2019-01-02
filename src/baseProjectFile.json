@@ -23,6 +23,7 @@
     "sourceMaps": true,
     "proxy": false,
     "watch": [],
+    "watchUsesPolling": false,
     "critical": {
         "destination": "public/criticalCss"
     },

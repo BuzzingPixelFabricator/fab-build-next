@@ -10,7 +10,7 @@
 /* global global */
 
 // Get Node requirements
-var postcssNext = require('postcss-cssnext');
+var postcssPresetEnv = require('postcss-preset-env');
 var CleanCSS = require('clean-css');
 var hexRGBA = require('postcss-hexrgba');
 
@@ -263,7 +263,7 @@ function runCss() {
     });
 
     // Process CSS with postcss
-    FAB.postcss([postcssMixins, postcssNext, hexRGBA])
+    FAB.postcss([postcssMixins, postcssPresetEnv, hexRGBA])
         .process(bundleContents)
         .then(function(result) {
             // Write the output to the min file
@@ -298,6 +298,7 @@ cssOutputDir.split(sep).forEach(function(path, i) {
     if (! path) {
         return;
     }
+
     if (i === 0 && path.indexOf(':') > -1) {
         outputDirPath += path;
     } else {
