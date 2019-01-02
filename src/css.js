@@ -263,7 +263,19 @@ function runCss() {
     });
 
     // Process CSS with postcss
-    FAB.postcss([postcssMixins, postcssPresetEnv, hexRGBA])
+    FAB.postcss(
+        [
+            postcssMixins,
+            postcssPresetEnv({
+                features: {
+                    'custom-properties': {
+                        preserve: FAB.config.cssOptions.preserveCustomProperties
+                    }
+                }
+            }),
+            hexRGBA
+        ]
+    )
         .process(bundleContents)
         .then(function(result) {
             // Write the output to the min file

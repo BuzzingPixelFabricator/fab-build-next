@@ -6,6 +6,9 @@
         "assetsSource/img",
         "assetsSource/lib"
     ],
+    "cssOptions": {
+        "preserveCustomProperties": false
+    },
     "enableCss": true,
     "minifyCss": true,
     "parseMediaQueriesInFileNames": true,
