@@ -32,16 +32,16 @@ if (FAB.config.enableJs) {
 }
 
 // Run JSHint
-if (FAB.config.enableJSHint) {
+if (FAB.config.enableJSHint && FAB.internalConfig.watch) {
     require('./jshint.js');
 }
 
 // Run JSCS
-if (FAB.config.enableJSCS) {
+if (FAB.config.enableJSCS && FAB.internalConfig.watch) {
     require('./jscs.js');
 }
 
 // Run browser sync
-if (FAB.config.proxy !== false) {
+if (FAB.config.proxy !== false && FAB.internalConfig.watch) {
     require('./browserSync.js');
 }

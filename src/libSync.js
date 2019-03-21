@@ -26,11 +26,15 @@ function runLibSync(srcDir, targetDir) {
             type: 'copy'
         });
 
-        FAB.out.success('Lib files synced, watching for lib file changes...');
+        if (FAB.internalConfig.watch) {
+            FAB.out.success('Lib files synced, watching for lib file changes...');
+        } else {
+            FAB.out.success('Lib files synced');
+        }
     }, 200);
 }
 
-// Watch for changes
+// Run sync on configured directories
 FAB.config.libSync.forEach(function(dir) {
     var dest = dir;
     var srcDir;
@@ -47,13 +51,18 @@ FAB.config.libSync.forEach(function(dir) {
 
     FAB.mkdirIfNotExists(srcDir);
 
-    FAB.watch.watchTree(
-        srcDir,
-        {
-            interval: 0.5
-        },
-        function() {
-            runLibSync(srcDir, targetDir);
-        }
-    );
+    if (FAB.internalConfig.watch) {
+        // Watch for changes
+        FAB.watch.watchTree(
+            srcDir,
+            {
+                interval: 0.5
+            },
+            function () {
+                runLibSync(srcDir, targetDir);
+            }
+        );
+    } else {
+        runLibSync(srcDir, targetDir);
+    }
 });

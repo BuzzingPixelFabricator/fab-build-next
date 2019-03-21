@@ -144,7 +144,10 @@ function runJs() {
             'Position: ' + processed.error.pos
         ]);
 
-        FAB.out.success('Watching for JS changes...');
+        if (FAB.internalConfig.watch) {
+            FAB.out.success('Watching for JS changes...');
+        }
+
         return;
     }
 
@@ -158,7 +161,11 @@ function runJs() {
     // Send notification
     FAB.notify('JS Compiled');
 
-    FAB.out.success('JS compiled, watching for JS changes...');
+    if (FAB.internalConfig.watch) {
+        FAB.out.success('JS compiled, watching for JS changes...');
+    } else {
+        FAB.out.success('JS compiled');
+    }
 }
 
 // Create the output directory
@@ -174,13 +181,17 @@ jsOutputDir.split(sep).forEach(function(path, i) {
     }
 });
 
-// Watch for changes
-FAB.watch.watchTree(
-    jsLoc,
-    {
-        interval: 0.5
-    },
-    function() {
-        runJs();
-    }
-);
+if (FAB.internalConfig.watch) {
+    // Watch for changes
+    FAB.watch.watchTree(
+        jsLoc,
+        {
+            interval: 0.5
+        },
+        function() {
+            runJs();
+        }
+    );
+} else {
+    runJs();
+}

@@ -90,3 +90,11 @@ FAB.internalConfig.cssOutput = FAB.internalConfig.cssOutputDir + sep + 'style.mi
 // Set up JS output
 FAB.internalConfig.jsOutputDir = global.projectRoot + sep + FAB.config.assets + sep + 'js';
 FAB.internalConfig.jsOutput = FAB.internalConfig.jsOutputDir + sep + 'script.min.js';
+
+// Set up whether we should watch
+FAB.internalConfig.watch = true;
+process.argv.forEach(function(val) {
+    if (val === '--build' || val === '--build-only') {
+        FAB.internalConfig.watch = false;
+    }
+});

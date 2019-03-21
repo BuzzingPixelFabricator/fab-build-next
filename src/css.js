@@ -276,14 +276,21 @@ function runCss() {
             hexRGBA
         ]
     )
-        .process(bundleContents)
+        .process(bundleContents, {
+            from: undefined
+        })
         .then(function(result) {
             // Write the output to the min file
             FAB.writeFile(cssOutput, result.css);
 
             // Send notification
             FAB.notify('CSS Compiled');
-            FAB.out.success('CSS compiled, watching for CSS changes...');
+
+            if (FAB.internalConfig.watch) {
+                FAB.out.success('CSS compiled, watching for CSS changes...');
+            } else {
+                FAB.out.success('CSS compiled');
+            }
         })
         .catch(function(error) {
             FAB.notify('PostCSS compile error', true);
@@ -301,7 +308,10 @@ function runCss() {
             ]);
 
             FAB.out.error('END PostCSS compile error');
-            FAB.out.success('Watching for CSS changes...');
+
+            if (FAB.internalConfig.watch) {
+                FAB.out.success('Watching for CSS changes...');
+            }
         });
 }
 
@@ -325,13 +335,17 @@ FAB.mkdirIfNotExists(fabCacheCssDirectory);
 // Create the bundled CSS file
 FAB.writeFile(fabCacheCssBundleFile);
 
-// Watch for changes
-FAB.watch.watchTree(
-    cssLoc,
-    {
-        interval: 0.5
-    },
-    function() {
-        runCss();
-    }
-);
+if (FAB.internalConfig.watch) {
+    // Watch for changes
+    FAB.watch.watchTree(
+        cssLoc,
+        {
+            interval: 0.5
+        },
+        function() {
+            runCss();
+        }
+    );
+} else {
+    runCss();
+}

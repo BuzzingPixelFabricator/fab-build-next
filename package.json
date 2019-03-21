@@ -33,6 +33,7 @@
         "postcss-preset-env": "^6.6.0",
         "recursive-readdir-sync": "^1.0.6",
         "request": "^2.88.0",
+        "require.js": "^1.0.0",
         "sync-directory": "^2.0.8",
         "uglify-js": "^3.5.1",
         "watch": "^1.0.2"
