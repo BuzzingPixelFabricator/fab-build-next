@@ -2,7 +2,7 @@
 
 FabBuild Next is a very light weight front-end build process.
 
-It's a complete rebuild of the old Fabricator build process using only NPM scripts, no task runners like `grunt` or `gulp`. As a result, it's extremely flexible and light weight.
+It's a complete rebuild of the old Fabricator build process using only Node scripts, no task runners like `grunt` or `gulp`. As a result, it's extremely flexible and light weight.
 
 Instead of Less or Sass like the old version used, it uses postcss and postcss-cssnext.
 
@@ -14,7 +14,7 @@ To use this front-end build process, see the example project to get you started:
 
 ## License
 
-Copyright 2017 TJ Draper, BuzzingPixel, LLC
+Copyright 2019 TJ Draper, BuzzingPixel, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

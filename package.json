@@ -24,17 +24,17 @@
         "fs-extra": "^7.0.1",
         "get-json": "^1.0.1",
         "jscs": "^3.0.7",
-        "jshint": "^2.9.7",
-        "node-notifier": "^5.3.0",
-        "postcss": "^7.0.7",
+        "jshint": "^2.10.2",
+        "node-notifier": "^5.4.0",
+        "postcss": "^7.0.14",
         "postcss-comment": "^2.0.0",
         "postcss-hexrgba": "^1.0.1",
         "postcss-mixins": "^6.2.1",
-        "postcss-preset-env": "^6.5.0",
+        "postcss-preset-env": "^6.6.0",
         "recursive-readdir-sync": "^1.0.6",
         "request": "^2.88.0",
-        "sync-directory": "^2.0.6",
-        "uglify-js": "^3.4.9",
+        "sync-directory": "^2.0.8",
+        "uglify-js": "^3.5.1",
         "watch": "^1.0.2"
     }
 }
