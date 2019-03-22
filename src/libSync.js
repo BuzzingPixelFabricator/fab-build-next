@@ -58,7 +58,7 @@ FAB.config.libSync.forEach(function(dir) {
             {
                 interval: 0.5
             },
-            function () {
+            function() {
                 runLibSync(srcDir, targetDir);
             }
         );

@@ -1,6 +1,6 @@
 {
     "name": "fab-build-next",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "description": "The next level build process for Fabricator",
     "homepage": "https://github.com/BuzzingPixelFabricator/fab-build-next",
     "bugs": "https://github.com/BuzzingPixelFabricator/fab-build-next/issues",
@@ -21,6 +21,7 @@
         "clean-css": "^4.2.1",
         "cli-output": "^1.0.0",
         "critical": "^1.3.4",
+        "eslint": "^5.15.3",
         "fs-extra": "^7.0.1",
         "get-json": "^1.0.1",
         "jscs": "^3.0.7",

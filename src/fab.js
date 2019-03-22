@@ -41,6 +41,11 @@ if (FAB.config.enableJSCS && FAB.internalConfig.watch) {
     require('./jscs.js');
 }
 
+// Run ESLint
+if (FAB.config.enableESLint && FAB.internalConfig.watch) {
+    require('./eslint.js');
+}
+
 // Run browser sync
 if (FAB.config.proxy !== false && FAB.internalConfig.watch) {
     require('./browserSync.js');
