@@ -10,7 +10,7 @@
 /* global global */
 
 // Get Node requirements
-var UglifyJS = require('uglify-js');
+var UglifyJS = require('terser');
 
 // Set up variables
 var sep = FAB.path.sep;
