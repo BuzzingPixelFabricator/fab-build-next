@@ -1,6 +1,6 @@
 {
     "name": "fab-build-next",
-    "version": "1.7.1",
+    "version": "1.8.0",
     "description": "The next level build process for Fabricator",
     "homepage": "https://github.com/BuzzingPixelFabricator/fab-build-next",
     "bugs": "https://github.com/BuzzingPixelFabricator/fab-build-next/issues",

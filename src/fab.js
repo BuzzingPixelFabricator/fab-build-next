@@ -21,6 +21,11 @@ if (typeof FAB.config.libSync === 'object' &&
     require('./libSync.js');
 }
 
+// Run file sync
+if (typeof FAB.internalConfig.fileSync === 'object') {
+    require('./fileSync.js');
+}
+
 // Run CSS
 if (FAB.config.enableCss) {
     require('./css.js');

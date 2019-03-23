@@ -45,6 +45,11 @@ for (var key in baseProjectFile) {
 
 FAB.config = config;
 
+// Set up internal config
+FAB.internalConfig = {};
+
+FAB.internalConfig.fileSync = {};
+
 // Do directory seperator replacements for WINDOZE
 if (sep !== '/') {
     FAB.config.assets = FAB.config.assets.replace(/\//g, sep);
@@ -54,6 +59,12 @@ if (sep !== '/') {
     FAB.config.libSync.forEach(function(val, i) {
         FAB.config.libSync[i] = val.replace(/\//g, sep);
     });
+
+    for (var srcFile in FAB.config.fileSync) {
+        if (FAB.config.fileSync.hasOwnProperty(srcFile)) {
+            FAB.internalConfig.fileSync[srcFile.replace(/\//g, sep)] = FAB.config.fileSync[srcFile].replace(/\//g, sep);
+        }
+    }
 
     FAB.config.compileCss.cssFiles.forEach(function(val, i) {
         FAB.config.compileCss.cssFiles[i] = val.replace(/\//g, sep);
@@ -70,10 +81,9 @@ if (sep !== '/') {
     FAB.config.watch.forEach(function(val, i) {
         FAB.config.watch[i] = val.replace(/\//g, sep);
     });
+} else {
+    FAB.internalConfig.fileSync = FAB.config.fileSync;
 }
-
-// Set up internal config
-FAB.internalConfig = {};
 
 // Set up the primary cache directory
 FAB.internalConfig.fabCacheDirectory = global.projectRoot + sep + 'fabCache';
