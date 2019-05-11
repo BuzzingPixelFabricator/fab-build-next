@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.9.0] - 2019-05-11
 ### Added 
 - Added jsFileExtensions option to config file to allow more than just .js file extensions
-- Add JS One to One mode
+- Added JS One to One mode
     - In this mode, JS files are minified to their location in the JS directory rather than concatenated into one file
 
 ## [1.8.0] - 2019-03-23
