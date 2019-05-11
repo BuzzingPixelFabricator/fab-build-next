@@ -8,8 +8,14 @@
 
 /* global FAB:true */
 
-FAB.mkdirIfNotExists = function(dir) {
+FAB.mkdirIfNotExists = function(dir, options) {
+    if (typeof options !== 'object') {
+        options = {
+            recursive: true
+        };
+    }
+
     if (! FAB.fs.existsSync(dir)) {
-        FAB.fs.mkdirSync(dir);
+        FAB.fs.mkdirSync(dir, options);
     }
 };

@@ -33,7 +33,11 @@ if (FAB.config.enableCss) {
 
 //  Run Javascript
 if (FAB.config.enableJs) {
-    require('./javascript.js');
+    if (FAB.config.jsOneToOneMode) {
+        require('./javascriptOneToOneMode.js');
+    } else {
+        require('./javascript.js');
+    }
 }
 
 // Run JSHint
