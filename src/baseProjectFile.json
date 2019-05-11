@@ -20,6 +20,9 @@
         "mixinFiles": []
     },
     "enableJs": true,
+    "jsFileExtensions": [
+        ".js"
+    ],
     "minifyJs": true,
     "jsNamespace": "FAB",
     "jsBuild": [],

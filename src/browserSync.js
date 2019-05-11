@@ -15,7 +15,7 @@ var sep = FAB.path.sep;
 
 var watchFiles = [
     FAB.internalConfig.cssOutput,
-    FAB.internalConfig.jsOutput
+    FAB.internalConfig.jsOutputDir + sep + sep + '**'
 ];
 
 var ignorePatterns = [

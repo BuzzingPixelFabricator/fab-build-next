@@ -107,7 +107,7 @@ function runJs() {
 
     // Add all other JS files except main
     FAB.recursive(jsLoc).forEach(function(file) {
-        if (FAB.path.extname(file) !== '.js' ||
+        if (FAB.config.jsFileExtensions.indexOf(FAB.path.extname(file)) < 0 ||
             file === setupLoc ||
             file === mainLoc
         ) {
@@ -173,6 +173,7 @@ jsOutputDir.split(sep).forEach(function(path, i) {
     if (! path) {
         return;
     }
+
     if (i === 0 && path.indexOf(':') > -1) {
         outputDirPath += path;
     } else {
