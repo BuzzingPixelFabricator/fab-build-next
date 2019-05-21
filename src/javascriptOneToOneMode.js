@@ -29,7 +29,7 @@ var options = {
 
 // Run JS function
 function runJsFile(filePath) {
-    var outputFullPath = jsOutputDir + filePath.slice(filePath.indexOf(jsOutputDir) + jsOutputDir.length);
+    var outputFullPath = jsOutputDir + filePath.slice(filePath.indexOf(jsLoc) + jsLoc.length);
     var sourceMapFullPath = outputFullPath + '.map';
     var sourceMapName = FAB.path.basename(sourceMapFullPath);
     var sourceMapCode;

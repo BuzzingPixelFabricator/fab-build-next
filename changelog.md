@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.1] - 2019-05-20
+### Fixed 
+- Fixed an issue in the JavascriptOneToOne process where file locations were being muddled and incorrectly set
+
 ## [1.9.0] - 2019-05-11
 ### Added 
 - Added jsFileExtensions option to config file to allow more than just .js file extensions
@@ -15,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added file sync feature
 
 ## [1.7.1] - 2019-03-22
-### Added 
+### Fixed 
 - Fixed an issue where ES6 code would not compile
 
 ## [1.7.0] - 2019-03-22
